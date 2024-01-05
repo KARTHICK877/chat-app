@@ -4,7 +4,7 @@ import store from "../redux/store/store";
 import { getToken } from "../helper/sessionHelper";
 import { setAllMessages, setNewMessage, setSingleMessage } from "../redux/state/chatSlice";
 import { socket } from "../components/ChatBox";
-const BaseURL = "http://localhost:5000/api"
+const BaseURL = "https://chat-app-mern-qfhu.onrender.com/api"
 const AxiosHeader = { headers: { "token": getToken() } }
 
 export const sentMessageRequest = async (content, chatId) =>{
