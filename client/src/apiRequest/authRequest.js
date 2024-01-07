@@ -11,7 +11,7 @@ const AxiosHeader = { headers: { "token": getToken() } }
 
 export const RegistrationRequest = (firstname, lastname, email, password) => {
     store.dispatch(showLoader())
-    let URL = BaseURL + "/auth/register";
+    let URL = BaseURL + "https://chat-app-mern-qfhu.onrender.com/api/auth/register";
     let PostBody = { firstname: firstname, lastname: lastname, email: email, password: password }
     return axios.post(URL, PostBody).then((res) => {
         store.dispatch(hideLoader())
@@ -36,7 +36,7 @@ export const RegistrationRequest = (firstname, lastname, email, password) => {
 
 export const LoginRequest = (email, password) => {
     store.dispatch(showLoader())
-    let URL = BaseURL + "/auth/login";
+    let URL = BaseURL + "https://chat-app-mern-qfhu.onrender.com/api/auth/login";
     let PostBody = { email: email, password: password }
     return axios.post(URL, PostBody).then((res) => {
         store.dispatch(hideLoader())
@@ -66,7 +66,7 @@ export const LoginRequest = (email, password) => {
 
 export const Logout = async() =>{
     store.dispatch(showLoader())
-    let URL = BaseURL + "/auth/logout";
+    let URL = BaseURL + "https://chat-app-mern-qfhu.onrender.com/api/auth/logout";
 
     return await axios.get(URL).then((res) => {
         store.dispatch(hideLoader())

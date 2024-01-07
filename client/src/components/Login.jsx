@@ -24,7 +24,7 @@ const Login = () => {
         }
     }
     const onLoginGuest = async () => {
-        await LoginRequest('johncena@gmail.com', 'a12345').then((result) => {
+        await LoginRequest('karthick@gmail.com', '12345678').then((result) => {
             if (result) window.location.href='/chat'
             else navigate('/')
         })
