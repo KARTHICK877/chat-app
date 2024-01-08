@@ -30,3 +30,8 @@ dist-ssr
 .pk
 .pem
 .pub
+
+git add .gitignore
+git commit -m "Unignore .env file"
+git push origin master
+
