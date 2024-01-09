@@ -114,11 +114,11 @@ const GroupInfo = ({ state, dispatch }) => {
                 <div className="relative">
                   <img className={`${selectUser.isGroupChat && 'bg-gray-300'} object-cover w-24 h-24 rounded-full`}
                     src={`${selectUser.isGroupChat ?
-                      selectUser.grpPhoto
+                      getUserDetails().grpPhoto
                       :
                       getSender(selectUser.users, getUserDetails()).photo
                       }`} 
-                  alt="Chat pic" />
+                  alt="err" />
                   {
                     selectUser && getOnline(selectUser, onlineUsers, getUserDetails())
                     &&

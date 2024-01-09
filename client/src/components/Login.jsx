@@ -31,7 +31,34 @@ const Login = () => {
     }
     return (
         <Fragment>
-            <section className="bg-gray-50">
+         {/* <video
+  src="./one.mp4"
+  autoPlay
+  loop
+  muted
+  style={{
+    position: "absolute",
+    top: "0",
+    left: "0",
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",  // Use camelCase for object-fit
+    zIndex: "-1"         // Use camelCase for z-index
+  }}
+> */}
+
+            
+            <section className="bg-gray-50"  style={{
+        backgroundImage: `url('./logo.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        width:"100%",
+        height: '100%', // Adjust the height as needed
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0 overflow-auto">
                     <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 ">
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0,0,256,256"
@@ -90,6 +117,7 @@ const Login = () => {
                     </div>
                 </div>
             </section>
+            {/* </video> */}
         </Fragment>
     )
 }

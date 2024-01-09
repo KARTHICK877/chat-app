@@ -56,16 +56,16 @@ const MyChat = ({ myChats, dispatch }) => {
                 </div>
                 <div className="flex flex-col overflow-y-auto cursor-pointer w-full h-full">
                     {
-                        myChats?.map((items, i) => {
+                         myChats?.map((items, i) => {
                             return (
                                 <button key={i} onClick={accessChatMsg.bind(this, items)} className={`flex items-center w-full px-4 py-2 border-b transition-colors duration-200 gap-x-3 ${selectUser?._id === items._id ? "bg-gray-200" : "bg-white hover:bg-gray-200"} focus:outline-none`}>
                                     <div className="relative w-14">
-                                        <img className={`${items.isGroupChat && 'bg-gray-300'} object-cover w-12 h-12 rounded-full`}
-                                            src={`${items.isGroupChat ?
-                                                items.grpPhoto
-                                                :
-                                                getSender(items.users, getUserDetails()).photo
-                                                }`} alt="Chat pic" />
+                                    <img
+    className={`${items.isGroupChat && 'bg-gray-300'} object-cover w-12 h-12 rounded-full`}
+    src={items.isGroupChat ? `/copy.png/${items.grpPhoto}` : getSender(items.users, getUserDetails()).photo}
+    alt="Chat pic"
+/>
+
                                         {
                                             getOnline(items, onlineUsers, getUserDetails()) &&
                                             <span className="h-3 w-3 rounded-full bg-emerald-500 absolute right-0.5 ring-2 ring-white -bottom-0.5"></span>

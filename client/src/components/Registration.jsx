@@ -2,7 +2,7 @@ import React, { Fragment, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ErrorToast, IsEmail, IsEmpty, IsPassword } from '../helper/formHelper'
 import { RegistrationRequest } from '../apiRequest/authRequest'
-
+import '../App.css'
 const Registration = () => {
     const [show, setShow] = useState(false)
     let fname, lname, email, password = useRef()
@@ -30,7 +30,20 @@ const Registration = () => {
     }
     return (
         <Fragment>
-            <section className="bg-gray-50">
+             
+            <section className="bg-gray-50"  style={{
+        backgroundImage: `url('./logo.png')`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        width:"100%",
+        height: '100%', // Adjust the height as needed
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+              
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto h-screen lg:py-0">
                     <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900">
                         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="35" height="35" viewBox="0,0,256,256"
@@ -39,6 +52,7 @@ const Registration = () => {
                         </svg>
                         Instachat
                     </a>
+                   
                     <div className="w-full bg-white rounded-lg shadow md:mt-0 md:max-w-xl sm:max-w-md  xl:p-0 ">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
@@ -79,22 +93,31 @@ const Registration = () => {
                                     </div>
                                 </div>
                                 <div className="flex items-start">
+                                    
                                     <div className="flex items-center h-5">
                                         <input id="terms" aria-describedby="terms" type="checkbox" className="checkbox w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-[#57cbd1] " required="" />
                                     </div>
                                     <div className="ml-3 text-sm">
                                         <label for="terms" className="font-medium text-gray-500">Remember me </label>
                                     </div>
+                                    
                                 </div>
+                                {/* <video src='./one.mp4'  autoPlay loop muted/> */}
                                 <button onClick={onRegister} type="submit" className="w-full text-white bg-[#0C7075] hover:bg-[#157c81] focus:ring-4 focus:outline-none focus:ring-[#38b9c0] font-medium rounded-lg text-sm px-5 py-2.5 text-center">Create an account</button>
                                 <p className="text-sm font-light text-gray-500">
                                     Already have an account? <Link to="/" className="font-medium text-[#0C7075] hover:underline ">Login here</Link>
                                 </p>
+                            
                             </div>
+
                         </div>
+                        
                     </div>
+                 
                 </div>
+               
             </section>
+           
         </Fragment>
     )
 }

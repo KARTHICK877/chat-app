@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { ErrorToast, IsEmpty } from '../helper/formHelper'
-import BG from '../assets/images/bg-chat.png'
+// import BG from '../assets/images/bg-chat.png'
 import Message from './Message'
 import { useSelector } from 'react-redux'
 import { getUserDetails } from '../helper/sessionHelper'
@@ -28,6 +28,7 @@ const ChatBox = ({ dispatch }) => {
     const allMessage = useSelector((state) => state.chat.allMessages)
     const notifications = useSelector((state) => state.setting.notifications)
     const onlineUsers = useSelector((state) => state.setting.onlineUsers)
+    const BG = require('../assets/images/bg-chat.png');
 
     const onTyping = (e) => {
         setMessage(e.target.value)
@@ -115,7 +116,8 @@ const ChatBox = ({ dispatch }) => {
             {
                 selectUser &&
                 <div className="flex flex-col bg-white overflow-hidden flex-grow h-[89.5vh]"
-                    style={{ backgroundImage: BG }}>
+                style={{ backgroundImage: `url(${require('../assets/images/bg-chat.png')})` }}
+                >
                     <div className="flex justify-between bg-white px-2 lg:px-4 py-2 border-b-2">
                         <div className="flex flex-none space-x-1 md:space-x-3 items-center">
                             <svg onClick={()=> store.dispatch(setSelectUser(null))} className='p-1 rounded-full lg:hidden block' xmlns="http://www.w3.org/2000/svg" width="38" height="38" viewBox="0 0 24 24" id="back-arrow">
@@ -129,6 +131,7 @@ const ChatBox = ({ dispatch }) => {
                                         :
                                         getSender(selectUser?.users, getUserDetails()).photo
                                         }`} 
+                                    // src={"./logo.png"}
                                 alt="Chat pic" />
                                 {
                                     getOnline(selectUser, onlineUsers, getUserDetails()) &&

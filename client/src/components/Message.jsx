@@ -44,7 +44,22 @@ const Message = ({ messages, isTyping, typingUser }) => {
     }
 
     return (
-        <ReactScrollableFeed className='py-4 ps-3 pe-5 md:ps-5 md:pe-7 xl:pe-12 mt-auto'>
+        <div
+        style={{
+            backgroundImage: `url('./th.jpg')`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            width: "100%",
+            // height: '100%',
+            // margin:"10px",
+            // display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+        }}
+    >
+        <ReactScrollableFeed className='py-4 ps-3 pe-5 md:ps-5 md:pe-7 xl:pe-12 mt-auto'  > 
+            {/* <img src={'./logo.png'} alt="" /> */}
 
             {
                 messages?.map((msg, i) => {
@@ -111,7 +126,18 @@ const Message = ({ messages, isTyping, typingUser }) => {
                                                 </div>
                                             ) : isSamesenderUpperMsg(messages, msg, i) ?
                                                 (
-                                                    <div className="flex w-full ml-[44px] space-x-3 max-w-[339px] mt-3 mr-24 md:mr-12">
+                                                    <div className="flex w-full ml-[44px] space-x-3 max-w-[339px] mt-3 mr-24 md:mr-12" style={{
+                                                        backgroundImage: `url('./th.jpg')`,
+                                                        backgroundSize: 'cover',
+                                                        backgroundPosition: 'center',
+                                                        backgroundRepeat: 'no-repeat',
+                                                        width: "100%",
+                                                        // height: '100%',
+                                                        // margin:"10px",
+                                                        // display: 'flex',
+                                                        justifyContent: 'center',
+                                                        alignItems: 'center',
+                                                    }}>
                                                         <div>
                                                             {
                                                                 msg.chat.isGroupChat &&
@@ -169,6 +195,7 @@ const Message = ({ messages, isTyping, typingUser }) => {
                     : <></>
             }
         </ReactScrollableFeed >
+        </div>
     )
 }
 
