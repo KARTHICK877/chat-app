@@ -29,7 +29,7 @@ const ChatBox = ({ dispatch }) => {
     const notifications = useSelector((state) => state.setting.notifications)
     const onlineUsers = useSelector((state) => state.setting.onlineUsers)
     const BG = require('../assets/images/bg-chat.png');
-
+    const [isLoading, setIsLoading] = useState(false);
     const onTyping = (e) => {
         setMessage(e.target.value)
 
@@ -50,31 +50,47 @@ const ChatBox = ({ dispatch }) => {
             }
         }, timerLength)
     }
-
     const onSentMessage = async () => {
-        socket.emit('stop typing', selectUser._id)
+        setLoading(true); // Set loading to true before sending a message
+        socket.emit('stop typing', selectUser._id);
+
         if (IsEmpty(message)) {
-            ErrorToast('Please write a message.')
+            setLoading(false); // Set loading back to false if there's an error
+            ErrorToast('Please write a message.');
         } else {
-            await sentMessageRequest(message, selectUser._id)
-            setMessage('')
+            try {
+                await sentMessageRequest(message, selectUser._id);
+                setMessage('');
+            } catch (error) {
+                console.error('Error sending message:', error);
+                // Handle the error accordingly, e.g., show an error toast
+            } finally {
+                setLoading(false); // Set loading back to false after sending a message
+            }
         }
     }
     const onSent = async (e) => {
         if (e.key === 'Enter') {
-            await onSentMessage()
+          await onSentMessage();
         }
-    }
-
+      }
+    
     const fetchAllMessage = async () => {
-        if (!selectUser) return
-        else {
-            setLoading(true)
-            await fetchAllMessagesRequest(selectUser._id)
-            setLoading(false)
-            socket.emit('join chat', selectUser._id)
+        if (!selectUser) return;
+    
+        setLoading(true); // Set loading to true before fetching messages
+    
+        try {
+            await fetchAllMessagesRequest(selectUser._id);
+            socket.emit('join chat', selectUser._id);
+        } catch (error) {
+            console.error('Error fetching messages:', error);
+            // Handle the error accordingly, e.g., show an error toast
+        } finally {
+            setLoading(false); // Set loading back to false after fetching messages
         }
     }
+    
 
     useEffect(() => {
         socket = io(ENDPOINT)
@@ -125,14 +141,17 @@ const ChatBox = ({ dispatch }) => {
                                 <path d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42-.39-.39-1.02-.39-1.41 0l-6.59 6.59c-.39.39-.39 1.02 0 1.41l6.59 6.59c.39.39 1.02.39 1.41 0 .39-.39.39-1.02 0-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z"></path>
                             </svg>
                             <div className="relative">
-                                <img className={`${selectUser.isGroupChat && 'bg-gray-300'} object-cover w-12 h-12 rounded-full`}
-                                    src={`${selectUser.isGroupChat ?
-                                        selectUser.grpPhoto
-                                        :
-                                        getSender(selectUser?.users, getUserDetails()).photo
-                                        }`} 
-                                    // src={"./logo.png"}
-                                alt="Chat pic" />
+                            <img
+                    className={`${
+                      selectUser.isGroupChat && "bg-gray-300"
+                    } object-cover w-12 h-12 rounded-full`}
+                    src={
+                      selectUser.isGroupChat
+                        ? "ths.jpg"
+                        : getSender(selectUser?.users, getUserDetails()).photo
+                    }
+                    alt="Chat pic"
+                  />
                                 {
                                     getOnline(selectUser, onlineUsers, getUserDetails()) &&
                                     <span className="h-3 w-3 rounded-full bg-emerald-500 absolute right-0.5 ring-2 ring-white -bottom-0.5"></span>
@@ -200,19 +219,20 @@ const ChatBox = ({ dispatch }) => {
                                 </path>
                             </svg>
                             <svg viewBox="0 0 24 24" width="24" height="24" className="cursor-pointer">
+                                
                                 <path fill="text-gary-700"
                                     d="M11.999 14.942c2.001 0 3.531-1.53 3.531-3.531V4.35c0-2.001-1.53-3.531-3.531-3.531S8.469 2.35 8.469 4.35v7.061c0 2.001 1.53 3.531 3.53 3.531zm6.238-3.53c0 3.531-2.942 6.002-6.237 6.002s-6.237-2.471-6.237-6.002H3.761c0 4.001 3.178 7.297 7.061 7.885v3.884h2.354v-3.884c3.884-.588 7.061-3.884 7.061-7.885h-2z">
                                 </path>
                             </svg>
                         </div>
                         <div className="flex flex-grow items-center space-x-3 lg:space-x-4 ">
-                            <input onChange={onTyping} onKeyDown={onSent} value={message} type="text"
-                                className="focus:outline-none bg-gray-200 w-full text-gray-500 p-3 rounded-lg text-sm"
-                                placeholder="Type a message" />
-                            <svg onClick={onSentMessage} classNameName='cursor-pointer' xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 64 64" style={{ isolation: "isolate" }} id="send"><defs><clipPath id="a"><rect width="64" height="64"></rect></clipPath></defs><g clip-path="url(#a)">
-                                <path fill="text-gary-700"
-                                    d=" M 8.216 36.338 L 26.885 32.604 C 28.552 32.271 28.552 31.729 26.885 31.396 L 8.216 27.662 C 7.104 27.44 6.021 26.356 5.799 25.245 L 2.065 6.576 C 1.731 4.908 2.714 4.133 4.259 4.846 L 61.228 31.139 C 62.257 31.614 62.257 32.386 61.228 32.861 L 4.259 59.154 C 2.714 59.867 1.731 59.092 2.065 57.424 L 5.799 38.755 C 6.021 37.644 7.104 36.56 8.216 36.338 Z "></path></g>
-                            </svg>
+                        <input onChange={onTyping} onKeyDown={onSent} value={message} type="text"
+  className="focus:outline-none bg-gray-200 w-full text-gray-500 p-3 rounded-lg text-sm"
+  placeholder="Type a message" />
+                    <svg onClick={onSentMessage} className={`cursor-pointer ${isLoading ? 'loading' : ''}`} xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 64 64" style={{ isolation: "isolate" }} id="send"><defs><clipPath id="a"><rect width="64" height="64"></rect></clipPath></defs><g clip-path="url(#a)">
+                        <path fill="text-gary-700"
+                            d=" M 8.216 36.338 L 26.885 32.604 C 28.552 32.271 28.552 31.729 26.885 31.396 L 8.216 27.662 C 7.104 27.44 6.021 26.356 5.799 25.245 L 2.065 6.576 C 1.731 4.908 2.714 4.133 4.259 4.846 L 61.228 31.139 C 62.257 31.614 62.257 32.386 61.228 32.861 L 4.259 59.154 C 2.714 59.867 1.731 59.092 2.065 57.424 L 5.799 38.755 C 6.021 37.644 7.104 36.56 8.216 36.338 Z "></path></g>
+                    </svg>
                         </div>
                     </div>
                 </div>

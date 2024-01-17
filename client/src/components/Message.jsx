@@ -46,12 +46,12 @@ const Message = ({ messages, isTyping, typingUser }) => {
     return (
         <div
         style={{
-            backgroundImage: `url('./th.jpg')`,
+            backgroundImage: `url('./logo.png')`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             width: "100%",
-            // height: '100%',
+            height: '100%',
             // margin:"10px",
             // display: 'flex',
             justifyContent: 'center',
@@ -127,7 +127,7 @@ const Message = ({ messages, isTyping, typingUser }) => {
                                             ) : isSamesenderUpperMsg(messages, msg, i) ?
                                                 (
                                                     <div className="flex w-full ml-[44px] space-x-3 max-w-[339px] mt-3 mr-24 md:mr-12" style={{
-                                                        backgroundImage: `url('./th.jpg')`,
+                                                        // backgroundImage: `url('./th.jpg')`,
                                                         backgroundSize: 'cover',
                                                         backgroundPosition: 'center',
                                                         backgroundRepeat: 'no-repeat',

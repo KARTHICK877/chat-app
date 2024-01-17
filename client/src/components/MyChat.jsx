@@ -61,9 +61,16 @@ const MyChat = ({ myChats, dispatch }) => {
                                 <button key={i} onClick={accessChatMsg.bind(this, items)} className={`flex items-center w-full px-4 py-2 border-b transition-colors duration-200 gap-x-3 ${selectUser?._id === items._id ? "bg-gray-200" : "bg-white hover:bg-gray-200"} focus:outline-none`}>
                                     <div className="relative w-14">
                                     <img
-    className={`${items.isGroupChat && 'bg-gray-300'} object-cover w-12 h-12 rounded-full`}
-    src={items.isGroupChat ? `/copy.png/${items.grpPhoto}` : getSender(items.users, getUserDetails()).photo}
-    alt="Chat pic"
+      className={`${
+        items.isGroupChat && "bg-gray-300"
+      } object-cover w-12 h-12 rounded-full`}
+      src={
+        items.isGroupChat
+          ? "/ths.jpg"
+          : getSender(items.users, getUserDetails())?.photo // Ensure getSender returns an object with a photo property
+      }
+      alt="Chat pic"
+    
 />
 
                                         {
